@@ -68,7 +68,7 @@ local c = {
     },
     {
         job = 'ALC',
-        atk = 26,
+        atk = 27,
         score = 0,
     },
     {
