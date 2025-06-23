@@ -1,5 +1,7 @@
 --[[SND Metadata]]
-
+author: PM
+version: 0.3.0
+description: Applies all memory crystal buffs and returns to the class the script was ran on
 --[[End Metadata]]
 
 local a
