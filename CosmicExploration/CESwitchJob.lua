@@ -48,7 +48,7 @@ local c = {
     },
     {
         job = 'ARM',
-        atk = 10,
+        atk = 11,
         score = 0,
     },
     {
@@ -59,6 +59,11 @@ local c = {
     {
         job = 'LTW',
         atk = 19,
+        score = 0,
+    },
+    {
+        job = 'WVR',
+        atk = 23,
         score = 0,
     },
     {
