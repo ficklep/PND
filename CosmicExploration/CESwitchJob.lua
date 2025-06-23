@@ -85,7 +85,7 @@ local function CESwitchJob()
 
         c[e].score = b.AtkNumber(g)
 
-        yield('/e ' .. c[e].score)
+        yield('/e ' .. tostring(c[e].score))
     end
 end
 
