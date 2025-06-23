@@ -81,7 +81,7 @@ local function CESwitchJob()
     end
 
     for e, f in ipairs(c)do
-        local g = d:GetAtkValue(f.atk)
+        local g = d:GetAtkValue(f.atk).ValueString
 
         c[e].score = b.AtkNumber(g)
 
