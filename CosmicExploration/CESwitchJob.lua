@@ -68,107 +68,108 @@ end
 
 local b = a.load'a'
 local c = a.load'b'
-local d = 49
-local e = 148
-local f = {
+local d = false
+local e = 49
+local f = 148
+local g = {
     {
         job = 'CRP',
         atk = 3,
         score = 0,
-        weather = {d},
+        weather = {e},
         hours = {0, 1},
     },
     {
         job = 'BSM',
         atk = 7,
         score = 0,
-        weather = {e},
+        weather = {f},
         hours = {4, 5},
     },
     {
         job = 'ARM',
         atk = 11,
         score = 0,
-        weather = {e},
+        weather = {f},
         hours = {8, 9},
     },
     {
         job = 'GSM',
         atk = 15,
         score = 0,
-        weather = {e},
+        weather = {f},
         hours = {12, 13},
     },
     {
         job = 'LTW',
         atk = 19,
         score = 0,
-        weather = {d},
+        weather = {e},
         hours = {16, 17},
     },
     {
         job = 'WVR',
         atk = 23,
         score = 0,
-        weather = {d},
+        weather = {e},
         hours = {20, 21},
     },
     {
         job = 'ALC',
         atk = 27,
         score = 0,
-        weather = {e},
+        weather = {f},
         hours = {0, 1},
     },
     {
         job = 'CUL',
         atk = 31,
         score = 0,
-        weather = {e},
-        hours = {3, 5},
+        weather = {f},
+        hours = {4, 5},
     },
 }
-local g = 500000
+local h = 500000
 
 local function CESwitchJob()
-    local h = 'NONE'
-    local i = 500000
-    local j = Instances.EnvManager.IsInGame
-    local k = c.ET().bell
-    local l = Addons.GetAddon'WKSScoreList'
+    local i = 'NONE'
+    local j = 500000
+    local k = Instances.EnvManager.IsInGame
+    local l = c.ET().bell
+    local m = Addons.GetAddon'WKSScoreList'
 
-    if not l.Exists then
+    if not m.Exists then
         yield'/e Score list is not visible'
 
         return
     end
 
-    for m, n in ipairs(f)do
-        local o = l:GetAtkValue(n.atk).ValueString
-        local p = b.AtkNumber(o)
+    for n, o in ipairs(g)do
+        local p = m:GetAtkValue(o.atk).ValueString
+        local q = b.AtkNumber(p)
 
-        if p == nil then
-            p = 0
+        if q == nil then
+            q = 0
         end
-        if p < g then
-            if b.TableContains(n.weather, j) then
-                p = p - g * 2
-            elseif b.TableContains(n.hours, k) then
-                p = p - g
+        if q < h then
+            if b.TableContains(o.weather, k) then
+                q = q - h * 2
+            elseif b.TableContains(o.hours, l) and d then
+                q = q - h
             end
         end
-        if p < i then
-            i = p
-            h = n.job
+        if q < j then
+            j = q
+            i = o.job
         end
 
-        f[m].score = p
+        g[n].score = q
     end
 
-    if h ~= 'NONE' then
-        local m = 'Cosmic ' .. h
+    if i ~= 'NONE' then
+        local n = 'Cosmic ' .. i
 
-        yield('/gs change ' .. b.quote(m))
+        yield('/gs change ' .. b.quote(n))
         yield'/icecosmic start'
     end
 end
