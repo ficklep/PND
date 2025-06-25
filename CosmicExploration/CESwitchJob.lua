@@ -1,6 +1,6 @@
 --[[SND Metadata]]
 author: PM
-version: 0.1.1
+version: 0.1.2
 description: Switches to the optimum job for the current weather and time\n\nRequires Gearsets to take the form of "Cosmic BSM"
 plugin_dependencies: ICE
 --[[End Metadata]]
@@ -133,7 +133,7 @@ local h = 500000
 
 local function CESwitchJob()
     local i = 'NONE'
-    local j = 500000
+    local j = h
     local k = Instances.EnvManager.IsInGame
     local l = c.ET().bell
     local m = Addons.GetAddon'WKSScoreList'
