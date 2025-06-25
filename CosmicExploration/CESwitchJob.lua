@@ -46,23 +46,24 @@ do
         return b
     end
     function a.b()
-        local b = {}
-        local c = 60
-        local d = 36E2
+        local b = math.floor
+        local c = {}
+        local d = 60
+        local e = 36E2
 
-        function b.ET()
-            local e = Instances.Framework.EorzeaTime
-            local f = e % 86400
-            local g = math.floor(f / d)
-            local h = math.floor((f % 3600) / c)
+        function c.ET()
+            local f = Instances.Framework.EorzeaTime
+            local g = f % 86400
+            local h = b(g / e)
+            local i = b((g % 3600) / d)
 
             return {
-                bell = g,
-                minute = h,
+                bell = h,
+                minute = i,
             }
         end
 
-        return b
+        return c
     end
 end
 
