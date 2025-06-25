@@ -157,13 +157,12 @@ local function CESwitchJob()
         if p == nil then
             p = 0
         end
+        if b.TableContains(n.weather, j) then
+            p = p - g * 2
+        elseif b.TableContains(n.hours, k) then
+            p = p - g
+        end
         if p < i and p < g then
-            if b.TableContains(n.weather, j) then
-                p = p - g * 2
-            elseif b.TableContains(n.hours, k) then
-                p = p - g
-            end
-
             i = p
             h = n.job
         end
