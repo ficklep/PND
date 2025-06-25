@@ -51,24 +51,15 @@ do
         local d = 36E2
 
         function b.ET()
-            local e = Instances.EnvManager.DayTimeSeconds
-            local f = (e // c) % 60
-            local g = e // d
+            local e = Instances.Framework.EorzeaTime
+            local f = e % 86400
+            local g = math.floor(f / d)
+            local h = math.floor((f % 3600) / c)
 
             return {
-                bell = math.floor(g),
-                minute = math.floor(f),
+                bell = g,
+                minute = h,
             }
-        end
-        function b.Bell()
-            local e = Instances.EnvManager.DayTimeSeconds
-
-            return math.floor(e // d)
-        end
-        function b.Minute()
-            local e = Instances.EnvManager.DayTimeSeconds
-
-            return math.floor((e // c) % 60)
         end
 
         return b
@@ -143,11 +134,13 @@ local function CESwitchJob()
     local h = 'NONE'
     local i = 500000
     local j = Instances.EnvManager.IsInGame
-    local k = c.Bell()
+    local k = c.ET().bell
     local l = Addons.GetAddon'WKSScoreList'
 
     if not l.Exists then
         yield'/e Score list is not visible'
+
+        return
     end
 
     for m, n in ipairs(f)do
@@ -157,10 +150,12 @@ local function CESwitchJob()
         if p == nil then
             p = 0
         end
-        if b.TableContains(n.weather, j) and p < g then
-            p = p - g * 2
-        elseif b.TableContains(n.hours, k) and p < g then
-            p = p - g
+        if p < g then
+            if b.TableContains(n.weather, j) then
+                p = p - g * 2
+            elseif b.TableContains(n.hours, k) then
+                p = p - g
+            end
         end
         if p < i then
             i = p
