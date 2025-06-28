@@ -1,6 +1,6 @@
 --[[SND Metadata]]
 author: PM
-version: 0.2.0
+version: 0.3.0
 description: Counts the number of players in the teleporter for Forked Tower
 --[[End Metadata]]
 
