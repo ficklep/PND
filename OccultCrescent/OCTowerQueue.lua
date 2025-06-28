@@ -61,6 +61,9 @@ local function OCTowerQueue()
 
         return
     end
+    if b.Distance(Player.Entity.Position, c) > 100 then
+        return '/e Too far from teleporter'
+    end
 
     local f = 0
 
