@@ -1,7 +1,7 @@
 --[=====[
 [[SND Metadata]]
 author: PM
-version: 0.3.0
+version: 0.3.1
 description: Switches to the optimum job for the current weather and time\n\nRequires Gearsets to take the form of "Cosmic BSM"
 plugin_dependencies: ICE
 configs:
@@ -148,11 +148,16 @@ local f = {
         hours = {4, 5},
     },
 }
-local g = Config.Get'targetScore'
-local h = Config.Get'enableTimed'
-local i = Config.Get'enableWeather'
 
 local function CESwitchJob()
+    local g = tonumber(Config.Get'targetScore')
+    local h = Config.Get'enableTimed'
+    local i = Config.Get'enableWeather'
+
+    Dalamud.LogVerbose('Target score: ' .. g)
+    Dalamud.LogVerbose('Timed enabled: ' .. h)
+    Dalamud.LogVerbose('Weather enabled: ' .. i)
+
     local j = 'NONE'
     local k = g
     local l = Instances.EnvManager.ActiveWeather
@@ -172,6 +177,9 @@ local function CESwitchJob()
         if r == nil then
             r = 0
         end
+
+        Dalamud.LogVerbose(string.format('%s: %d', p.job, r))
+
         if r < g then
             if b.TableContains(p.weather, l) and i then
                 r = r - g * 2
