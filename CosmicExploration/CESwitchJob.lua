@@ -135,7 +135,7 @@ local h = 500000
 local function CESwitchJob()
     local i = 'NONE'
     local j = h
-    local k = Instances.EnvManager.IsInGame
+    local k = Instances.EnvManager.ActiveWeather
     local l = c.ET().bell
     local m = Addons.GetAddon'WKSScoreList'
 
