@@ -3,6 +3,13 @@ author: PM
 version: 0.1.2
 description: Switches to the optimum job for the current weather and time\n\nRequires Gearsets to take the form of "Cosmic BSM"
 plugin_dependencies: ICE
+configs:
+  targetScore:
+    default: 500000
+    description: Target score to stop switching to a job at
+    type: int
+    min: 1
+    required: true
 --[[End Metadata]]
 
 local a
@@ -130,7 +137,7 @@ local g = {
         hours = {4, 5},
     },
 }
-local h = 500000
+local h = Config.Get'targetScore'
 
 local function CESwitchJob()
     local i = 'NONE'
