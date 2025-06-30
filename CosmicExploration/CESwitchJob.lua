@@ -1,6 +1,6 @@
 --[[SND Metadata]]
 author: PM
-version: 0.1.2
+version: 0.2.0
 description: Switches to the optimum job for the current weather and time\n\nRequires Gearsets to take the form of "Cosmic BSM"
 plugin_dependencies: ICE
 configs:
