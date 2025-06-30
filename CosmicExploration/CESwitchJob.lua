@@ -1,7 +1,7 @@
 --[=====[
 [[SND Metadata]]
 author: PM
-version: 0.2.0
+version: 0.3.0
 description: Switches to the optimum job for the current weather and time\n\nRequires Gearsets to take the form of "Cosmic BSM"
 plugin_dependencies: ICE
 configs:
@@ -10,6 +10,16 @@ configs:
     description: Target score to stop switching to a job at
     type: int
     min: 1
+    required: true
+  enableTimed:
+    default: false
+    description: Enable timed based job switching
+    type: bool
+    required: true
+  enableWeather:
+    default: true
+    description: Enable weather based job switching
+    type: bool
     required: true
 [[End Metadata]]
 --]=====]
@@ -78,108 +88,109 @@ end
 
 local b = a.load'a'
 local c = a.load'b'
-local d = false
-local e = 49
-local f = 148
-local g = {
+local d = 49
+local e = 148
+local f = {
     {
         job = 'CRP',
         atk = 3,
         score = 0,
-        weather = {e},
+        weather = {d},
         hours = {0, 1},
     },
     {
         job = 'BSM',
         atk = 7,
         score = 0,
-        weather = {f},
+        weather = {e},
         hours = {4, 5},
     },
     {
         job = 'ARM',
         atk = 11,
         score = 0,
-        weather = {f},
+        weather = {e},
         hours = {8, 9},
     },
     {
         job = 'GSM',
         atk = 15,
         score = 0,
-        weather = {f},
+        weather = {e},
         hours = {12, 13},
     },
     {
         job = 'LTW',
         atk = 19,
         score = 0,
-        weather = {e},
+        weather = {d},
         hours = {16, 17},
     },
     {
         job = 'WVR',
         atk = 23,
         score = 0,
-        weather = {e},
+        weather = {d},
         hours = {20, 21},
     },
     {
         job = 'ALC',
         atk = 27,
         score = 0,
-        weather = {f},
+        weather = {e},
         hours = {0, 1},
     },
     {
         job = 'CUL',
         atk = 31,
         score = 0,
-        weather = {f},
+        weather = {e},
         hours = {4, 5},
     },
 }
-local h = Config.Get'targetScore'
+local g = Config.Get'targetScore'
+local h = Config.Get'enableTimed'
+local i = Config.Get'enableWeather'
 
 local function CESwitchJob()
-    local i = 'NONE'
-    local j = h
-    local k = Instances.EnvManager.ActiveWeather
-    local l = c.ET().bell
-    local m = Addons.GetAddon'WKSScoreList'
+    local j = 'NONE'
+    local k = g
+    local l = Instances.EnvManager.ActiveWeather
+    local m = c.ET().bell
+    local n = Addons.GetAddon'WKSScoreList'
 
-    if not m.Exists then
+    if not n.Exists then
         yield'/e Score list is not visible'
 
         return
     end
 
-    for n, o in ipairs(g)do
-        local p = m:GetAtkValue(o.atk).ValueString
-        local q = b.AtkNumber(p)
+    for o, p in ipairs(f)do
+        local q = n:GetAtkValue(p.atk).ValueString
+        local r = b.AtkNumber(q)
 
-        if q == nil then
-            q = 0
+        if r == nil then
+            r = 0
         end
-        if q < h then
-            if b.TableContains(o.weather, k) then
-                q = q - h * 2
-            elseif b.TableContains(o.hours, l) and d then
-                q = q - h
+        if r < g then
+            if b.TableContains(p.weather, l) and i then
+                r = r - g * 2
+            elseif b.TableContains(p.hours, m) and h then
+                r = r - g
             end
         end
-        if q < j then
-            j = q
-            i = o.job
+        if r < k then
+            k = r
+            j = p.job
         end
 
-        g[n].score = q
+        f[o].score = r
     end
 
-    if i ~= 'NONE' then
-        local n = 'Cosmic ' .. i
+    if j ~= 'NONE' then
+        local o = 'Cosmic ' .. j
 
-        yield('/gs change ' .. b.quote(n))
+        yield('/gs change ' .. b.quote(o))
         yield'/icecosmic start'
     end
 end
