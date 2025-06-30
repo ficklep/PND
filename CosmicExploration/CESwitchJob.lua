@@ -1,5 +1,5 @@
 --[=====[
---[[SND Metadata]]
+[[SND Metadata]]
 author: PM
 version: 0.2.0
 description: Switches to the optimum job for the current weather and time\n\nRequires Gearsets to take the form of "Cosmic BSM"
@@ -11,7 +11,7 @@ configs:
     type: int
     min: 1
     required: true
---[[End Metadata]]
+[[End Metadata]]
 --]=====]
 
 local a

@@ -1,9 +1,9 @@
 --[=====[
---[[SND Metadata]]
+[[SND Metadata]]
 author: PM
 version: 0.3.0
 description: Checks for chests in OC
---[[End Metadata]]
+[[End Metadata]]
 --]=====]
 
 local a
