@@ -155,8 +155,8 @@ local function CESwitchJob()
     local i = Config.Get'enableWeather'
 
     Dalamud.LogVerbose('Target score: ' .. g)
-    Dalamud.LogVerbose('Timed enabled: ' .. h)
-    Dalamud.LogVerbose('Weather enabled: ' .. i)
+    Dalamud.LogVerbose('Timed enabled: ' .. tostring(h))
+    Dalamud.LogVerbose('Weather enabled: ' .. tostring(i))
 
     local j = 'NONE'
     local k = g
