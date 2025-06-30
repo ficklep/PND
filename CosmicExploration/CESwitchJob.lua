@@ -1,3 +1,4 @@
+--[=====[
 --[[SND Metadata]]
 author: PM
 version: 0.2.0
@@ -11,6 +12,7 @@ configs:
     min: 1
     required: true
 --[[End Metadata]]
+--]=====]
 
 local a
 

@@ -1,8 +1,10 @@
+--[=====[
 --[[SND Metadata]]
 author: PM
 version: 0.3.0
 description: Applies geomancer bell buffs and switches back to the class the script was ran on
 --[[End Metadata]]
+--]=====]
 
 local a
 
