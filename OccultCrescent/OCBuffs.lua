@@ -1,7 +1,7 @@
 --[=====[
 [[SND Metadata]]
 author: PM
-version: 0.5.0
+version: 0.5.1
 description: Applies all memory crystal buffs and returns to the class the script was ran on
 configs:
   enableBard:
@@ -10,7 +10,7 @@ configs:
     default: true
     required: true
   enableKnight:
-    description: Enable Ph. Bard's buff Enduring Fortitude (Damage taken is reduced)
+    description: Enable Ph. Knight's buff Enduring Fortitude (Damage taken is reduced)
     type: bool
     default: true
     required: true
