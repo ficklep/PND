@@ -1,8 +1,24 @@
 --[=====[
 [[SND Metadata]]
 author: PM
-version: 0.3.0
+version: 0.4.0
 description: Applies all memory crystal buffs and returns to the class the script was ran on
+config:
+  enableBard:
+    description: Enable Ph. Bard's buff Romeo's Ballad (Phantom EXP earned through battle is increased)
+    type: bool
+    default: true
+    required: true
+  enableKnight:
+    description: Enable Ph. Bard's buff Enduring Fortitude (Damage taken is reduced)
+    type: bool
+    default: true
+    required: true
+  enableMonk:
+    description: Enable Ph. Monk's buff Fleetfooted (Movement speed is increased)
+    type: bool
+    default: true
+    required: true
 [[End Metadata]]
 --]=====]
 
@@ -49,14 +65,17 @@ local b = a.load'a'
 OCJobBuffs = {
     {
         name = 'Knight',
+        enabled = Config.Get'enableKnight',
         action = 2,
     },
     {
         name = 'Monk',
+        enabled = Config.Get'enableMonk',
         action = 3,
     },
     {
         name = 'Bard',
+        enabled = Config.Get'enableBard',
         action = 2,
     },
 }
@@ -71,8 +90,10 @@ local function ocBuffs()
     local c = b.getOcJob()
 
     for d, e in ipairs(OCJobBuffs)do
-        yield('/phantomjob ' .. e.name .. ' <wait.1-2>')
-        yield('/action "Phantom Action ' .. string.rep('I', e.action) .. '" <wait.2-3>')
+        if e.enabled then
+            yield('/phantomjob ' .. e.name .. ' <wait.2-4>')
+            yield('/action "Phantom Action ' .. string.rep('I', e.action) .. '" <wait.2-3>')
+        end
     end
 
     yield('/phantomjob ' .. c)
