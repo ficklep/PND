@@ -3,7 +3,7 @@
 author: PM
 version: 0.4.0
 description: Applies all memory crystal buffs and returns to the class the script was ran on
-config:
+configs:
   enableBard:
     description: Enable Ph. Bard's buff Romeo's Ballad (Phantom EXP earned through battle is increased)
     type: bool
