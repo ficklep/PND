@@ -1,7 +1,7 @@
 --[=====[
 [[SND Metadata]]
 author: PM
-version: 0.4.0
+version: 0.5.0
 description: Applies all memory crystal buffs and returns to the class the script was ran on
 configs:
   enableBard:
@@ -58,9 +58,35 @@ do
 
         return b
     end
+    function a.b()
+        local b = {}
+
+        function b.to2D(c)
+            if c.Z ~= nil then
+                return {
+                    X = c.X,
+                    Y = c.Z,
+                }
+            end
+
+            return {
+                X = c.X,
+                Y = c.Y,
+            }
+        end
+        function b.Distance(c, d)
+            local e = b.to2D(c)
+            local f = b.to2D(d)
+
+            return math.sqrt(((e.X - f.X) ^ 2) + (e.Y - f.Y) ^ 2)
+        end
+
+        return b
+    end
 end
 
 local b = a.load'a'
+local c = a.load'b'
 
 OCJobBuffs = {
     {
@@ -81,22 +107,39 @@ OCJobBuffs = {
 }
 
 local function ocBuffs()
+    local d = b.getOcJob()
+    local e = false
+
     if not b.canChangePhJob() then
         yield'/e This can not be used at this time'
 
         return
     end
 
-    local c = b.getOcJob()
+    for f in luanet.each(Svc.Objects)do
+        if f.DataId == 2007457 then
+            local g = c.Distance(f.Position, Entity.Player.Position)
 
-    for d, e in ipairs(OCJobBuffs)do
-        if e.enabled then
-            yield('/phantomjob ' .. e.name .. ' <wait.2-4>')
-            yield('/action "Phantom Action ' .. string.rep('I', e.action) .. '" <wait.2-3>')
+            if g < 4.8 then
+                e = true
+            end
         end
     end
 
-    yield('/phantomjob ' .. c)
+    if not e then
+        yield'/e Too far from a knowledge crystal to apply buffs.'
+
+        return
+    end
+
+    for f, g in ipairs(OCJobBuffs)do
+        if g.enabled then
+            yield('/phantomjob ' .. g.name .. ' <wait.2-4>')
+            yield('/action "Phantom Action ' .. string.rep('I', g.action) .. '" <wait.2-3>')
+        end
+    end
+
+    yield('/phantomjob ' .. d)
 end
 
 ocBuffs()
