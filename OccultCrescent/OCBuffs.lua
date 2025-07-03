@@ -90,19 +90,25 @@ local c = a.load'b'
 
 OCJobBuffs = {
     {
+        id = 1,
         name = 'Knight',
         enabled = Config.Get'enableKnight',
         action = 2,
+        level = 2,
     },
     {
+        id = 3,
         name = 'Monk',
         enabled = Config.Get'enableMonk',
         action = 3,
+        level = 3,
     },
     {
+        id = 6,
         name = 'Bard',
         enabled = Config.Get'enableBard',
         action = 2,
+        level = 2,
     },
 }
 
@@ -132,10 +138,12 @@ local function ocBuffs()
         return
     end
 
-    for f, g in ipairs(OCJobBuffs)do
-        if g.enabled then
-            yield('/phantomjob ' .. g.name .. ' <wait.2-4>')
-            yield('/action "Phantom Action ' .. string.rep('I', g.action) .. '" <wait.2-3>')
+    local f = InstancedContent.OccultCrescent.OccultCrescentState.SupportJobLevels
+
+    for g, h in ipairs(OCJobBuffs)do
+        if h.enabled and (f[h.id] >= h.level) then
+            yield('/phantomjob ' .. h.name .. ' <wait.2-4>')
+            yield('/action "Phantom Action ' .. string.rep('I', h.action) .. '" <wait.2-3>')
         end
     end
 
