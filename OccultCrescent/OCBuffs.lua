@@ -1,24 +1,21 @@
 --[=====[
 [[SND Metadata]]
 author: PM
-version: 0.5.1
+version: 0.5.2
 description: Applies all memory crystal buffs and returns to the class the script was ran on
 configs:
   enableBard:
     description: Enable Ph. Bard's buff Romeo's Ballad (Phantom EXP earned through battle is increased)
     type: bool
     default: true
-    required: true
   enableKnight:
     description: Enable Ph. Knight's buff Enduring Fortitude (Damage taken is reduced)
     type: bool
     default: true
-    required: true
   enableMonk:
     description: Enable Ph. Monk's buff Fleetfooted (Movement speed is increased)
     type: bool
     default: true
-    required: true
 [[End Metadata]]
 --]=====]
 
@@ -58,35 +55,11 @@ do
 
         return b
     end
-    function a.b()
-        local b = {}
-
-        function b.to2D(c)
-            if c.Z ~= nil then
-                return {
-                    X = c.X,
-                    Y = c.Z,
-                }
-            end
-
-            return {
-                X = c.X,
-                Y = c.Y,
-            }
-        end
-        function b.Distance(c, d)
-            local e = b.to2D(c)
-            local f = b.to2D(d)
-
-            return math.sqrt(((e.X - f.X) ^ 2) + (e.Y - f.Y) ^ 2)
-        end
-
-        return b
-    end
 end
 
+import'System.Numerics'
+
 local b = a.load'a'
-local c = a.load'b'
 
 OCJobBuffs = {
     {
@@ -113,8 +86,8 @@ OCJobBuffs = {
 }
 
 local function ocBuffs()
-    local d = b.getOcJob()
-    local e = false
+    local c = b.getOcJob()
+    local d = false
 
     if not b.canChangePhJob() then
         yield'/e This can not be used at this time'
@@ -122,32 +95,32 @@ local function ocBuffs()
         return
     end
 
-    for f in luanet.each(Svc.Objects)do
-        if f.DataId == 2007457 then
-            local g = c.Distance(f.Position, Entity.Player.Position)
+    for e in luanet.each(Svc.Objects)do
+        if e.DataId == 2007457 then
+            local f = Vector3.Distance(e.Position, Entity.Player.Position)
 
-            if g < 4.8 then
-                e = true
+            if f < 4.8 then
+                d = true
             end
         end
     end
 
-    if not e then
+    if not d then
         yield'/e Too far from a knowledge crystal to apply buffs.'
 
         return
     end
 
-    local f = InstancedContent.OccultCrescent.OccultCrescentState.SupportJobLevels
+    local e = InstancedContent.OccultCrescent.OccultCrescentState.SupportJobLevels
 
-    for g, h in ipairs(OCJobBuffs)do
-        if h.enabled and (f[h.id] >= h.level) then
-            yield('/phantomjob ' .. h.name .. ' <wait.2-4>')
-            yield('/action "Phantom Action ' .. string.rep('I', h.action) .. '" <wait.2-3>')
+    for f, g in ipairs(OCJobBuffs)do
+        if g.enabled and (e[g.id] >= g.level) then
+            yield('/phantomjob ' .. g.name .. ' <wait.2-4>')
+            yield('/action "Phantom Action ' .. string.rep('I', g.action) .. '" <wait.2-3>')
         end
     end
 
-    yield('/phantomjob ' .. d)
+    yield('/phantomjob ' .. c)
 end
 
 ocBuffs()
