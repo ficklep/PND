@@ -1,7 +1,7 @@
 --[=====[
 [[SND Metadata]]
 author: PM
-version: 0.4.0
+version: 0.4.1
 description: Counts the number of players in the teleporter for Forked Tower
 [[End Metadata]]
 --]=====]
@@ -15,12 +15,12 @@ local function OCTowerQueue()
     local c = Svc.ClientState.TerritoryType == 1252
 
     if not c then
-        yield'/e Not currently in South Horn'
+        Svc.Chat:Print'Not currently in south horn'
 
         return
     end
     if Vector3.Distance(Player.Entity.Position, a) > 100 then
-        yield'/e Too far from teleporter'
+        Svc.Chat:Print'Too far from teleporter'
 
         return
     end
@@ -37,7 +37,7 @@ local function OCTowerQueue()
         end
     end
 
-    yield(string.format('/e Players queued for Forked Tower: %d', d))
+    Svc.Chat:Print(string.format('/e Players queued for Forked Tower: %d', d))
 end
 
 OCTowerQueue()
