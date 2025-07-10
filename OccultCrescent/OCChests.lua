@@ -55,8 +55,10 @@ local function ocChests()
 
     local c = b.getOcJob()
 
-    yield'/phantomjob freelancer <wait.1>'
-    yield'/action "Phantom Action II" <wait.1>'
+    yield'/phantomjob freelancer'
+    yield'/wait 2'
+    yield'/action "Phantom Action II"'
+    yield'/wait 2'
     yield('/phantomjob ' .. c)
 end
 

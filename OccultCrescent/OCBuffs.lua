@@ -115,8 +115,10 @@ local function ocBuffs()
 
     for f, g in ipairs(OCJobBuffs)do
         if g.enabled and (e[g.id] >= g.level) then
-            yield('/phantomjob ' .. g.name .. ' <wait.2-4>')
-            yield('/action "Phantom Action ' .. string.rep('I', g.action) .. '" <wait.2-3>')
+            yield('/phantomjob ' .. g.name)
+            yield'/wait 2'
+            yield('/action "Phantom Action ' .. string.rep('I', g.action) .. '"')
+            yield'/wait 3'
         end
     end
 

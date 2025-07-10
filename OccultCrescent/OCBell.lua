@@ -55,9 +55,12 @@ local function ocBell()
 
     local c = b.getOcJob()
 
-    yield'/phantomjob geomancer <wait.1>'
-    yield'/action "Phantom Action III" <wait.1>'
-    yield'/action "Phantom Action I" <wait.1>'
+    yield'/phantomjob geomancer'
+    yield'/wait 1'
+    yield'/action "Phantom Action III"'
+    yield'/wait 1'
+    yield'/action "Phantom Action I"'
+    yield'/wait 1'
     yield('/phantomjob ' .. c)
 end
 
