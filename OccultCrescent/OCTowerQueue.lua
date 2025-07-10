@@ -1,7 +1,7 @@
 --[=====[
 [[SND Metadata]]
 author: PM
-version: 0.4.1
+version: 0.4.2
 description: Counts the number of players in the teleporter for Forked Tower
 [[End Metadata]]
 --]=====]
@@ -37,7 +37,7 @@ local function OCTowerQueue()
         end
     end
 
-    Svc.Chat:Print(string.format('/e Players queued for Forked Tower: %d', d))
+    Svc.Chat:Print(string.format('Players queued for Forked Tower: %d', d))
 end
 
 OCTowerQueue()
