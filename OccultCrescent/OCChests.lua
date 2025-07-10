@@ -1,7 +1,7 @@
 --[=====[
 [[SND Metadata]]
 author: PM
-version: 0.3.0
+version: 0.4.0
 description: Checks for chests in OC
 [[End Metadata]]
 --]=====]
@@ -57,6 +57,13 @@ local function ocChests()
 
     yield'/phantomjob freelancer'
     yield'/wait 2'
+
+    if InstancedContent.OccultCrescent.OccultCrescentState.CurrentSupportJob ~= 0 then
+        Svc.Chat:Print'Unable to switch to Ph. Freelancer, try again.'
+
+        return
+    end
+
     yield'/action "Phantom Action II"'
     yield'/wait 2'
     yield('/phantomjob ' .. c)
