@@ -1,7 +1,7 @@
 --[=====[
 [[SND Metadata]]
 author: PM
-version: 0.3.1
+version: 0.4.0
 description: Switches to the optimum job for the current weather and time\n\nRequires Gearsets to take the form of "Cosmic BSM"
 plugin_dependencies: ICE
 configs:
@@ -84,121 +84,141 @@ do
 
         return c
     end
+    function a.c()
+        local function ErrorToast(b)
+            Svc.Toasts:ShowError(b)
+        end
+
+        return ErrorToast
+    end
+    function a.d()
+        local b = a.load'c'
+
+        local function ErrorLog(c, d)
+            d = d or false
+
+            Svc.Chat:PrintError(c, 'PND', 58)
+
+            if d then
+                b(c)
+            end
+        end
+
+        return ErrorLog
+    end
 end
 
 local b = a.load'a'
 local c = a.load'b'
-local d = 49
-local e = 148
-local f = {
+local d = a.load'd'
+local e = 49
+local f = 148
+local g = {
     {
         job = 'CRP',
         atk = 3,
         score = 0,
-        weather = {d},
+        weather = {e},
         hours = {0, 1},
     },
     {
         job = 'BSM',
         atk = 7,
         score = 0,
-        weather = {e},
+        weather = {f},
         hours = {4, 5},
     },
     {
         job = 'ARM',
         atk = 11,
         score = 0,
-        weather = {e},
+        weather = {f},
         hours = {8, 9},
     },
     {
         job = 'GSM',
         atk = 15,
         score = 0,
-        weather = {e},
+        weather = {f},
         hours = {12, 13},
     },
     {
         job = 'LTW',
         atk = 19,
         score = 0,
-        weather = {d},
+        weather = {e},
         hours = {16, 17},
     },
     {
         job = 'WVR',
         atk = 23,
         score = 0,
-        weather = {d},
+        weather = {e},
         hours = {20, 21},
     },
     {
         job = 'ALC',
         atk = 27,
         score = 0,
-        weather = {e},
+        weather = {f},
         hours = {0, 1},
     },
     {
         job = 'CUL',
         atk = 31,
         score = 0,
-        weather = {e},
+        weather = {f},
         hours = {4, 5},
     },
 }
 
 local function CESwitchJob()
-    local g = tonumber(Config.Get'targetScore')
-    local h = Config.Get'enableTimed'
-    local i = Config.Get'enableWeather'
+    local h = tonumber(Config.Get'targetScore')
+    local i = Config.Get'enableTimed'
+    local j = Config.Get'enableWeather'
 
-    Dalamud.LogVerbose('Target score: ' .. g)
-    Dalamud.LogVerbose('Timed enabled: ' .. tostring(h))
-    Dalamud.LogVerbose('Weather enabled: ' .. tostring(i))
+    Dalamud.LogVerbose('Target score: ' .. h)
+    Dalamud.LogVerbose('Timed enabled: ' .. tostring(i))
+    Dalamud.LogVerbose('Weather enabled: ' .. tostring(j))
 
-    local j = 'NONE'
-    local k = g
-    local l = Instances.EnvManager.ActiveWeather
-    local m = c.ET().bell
-    local n = Addons.GetAddon'WKSScoreList'
+    local k = 'NONE'
+    local l = h
+    local m = Instances.EnvManager.ActiveWeather
+    local n = c.ET().bell
+    local o = Addons.GetAddon'WKSScoreList'
 
-    if not n.Exists then
-        yield'/e Score list is not visible'
+    if not o.Exists then
+        d('Score list is not visible.', true)
 
         return
     end
 
-    for o, p in ipairs(f)do
-        local q = n:GetAtkValue(p.atk).ValueString
-        local r = b.AtkNumber(q)
+    for p, q in ipairs(g)do
+        local r = o:GetAtkValue(q.atk).ValueString
+        local s = b.AtkNumber(r)
 
-        if r == nil then
-            r = 0
+        if s == nil then
+            s = 0
         end
-
-        Dalamud.LogVerbose(string.format('%s: %d', p.job, r))
-
-        if r < g then
-            if b.TableContains(p.weather, l) and i then
-                r = r - g * 2
-            elseif b.TableContains(p.hours, m) and h then
-                r = r - g
+        if s < h then
+            if b.TableContains(q.weather, m) and j then
+                s = s - h * 2
+            elseif b.TableContains(q.hours, n) and i then
+                s = s - h
             end
         end
-        if r < k then
-            k = r
-            j = p.job
+        if s < l then
+            l = s
+            k = q.job
         end
 
-        f[o].score = r
+        g[p].score = s
     end
 
-    if j ~= 'NONE' then
-        local o = 'Cosmic ' .. j
+    if k ~= 'NONE' then
+        local p = 'Cosmic ' .. k
 
-        yield('/gs change ' .. b.quote(o))
+        yield('/gs change ' .. b.quote(p))
         yield'/icecosmic start'
     end
 end
