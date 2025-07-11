@@ -1,7 +1,7 @@
 --[=====[
 [[SND Metadata]]
 author: PM
-version: 0.5.2
+version: 0.6.0
 description: Applies all memory crystal buffs and returns to the class the script was ran on
 configs:
   enableBard:
@@ -36,6 +36,28 @@ a = {
 
 do
     function a.a()
+        local function ErrorToast(b)
+            Svc.Toasts:ShowError(b)
+        end
+
+        return ErrorToast
+    end
+    function a.b()
+        local b = a.load'a'
+
+        local function ErrorLog(c, d)
+            d = d or false
+
+            Svc.Chat:PrintError(c, 'PND', 58)
+
+            if d then
+                b(c)
+            end
+        end
+
+        return ErrorLog
+    end
+    function a.c()
         local b = {}
 
         function b.getOcJob()
@@ -57,9 +79,11 @@ do
     end
 end
 
+local b = a.load'b'
+
 import'System.Numerics'
 
-local b = a.load'a'
+local c = a.load'c'
 
 OCJobBuffs = {
     {
@@ -86,43 +110,43 @@ OCJobBuffs = {
 }
 
 local function ocBuffs()
-    local c = b.getOcJob()
-    local d = false
+    local d = c.getOcJob()
+    local e = false
 
-    if not b.canChangePhJob() then
-        yield'/e This can not be used at this time'
+    if not c.canChangePhJob() then
+        b('This can not be used at this time', true)
 
         return
     end
 
-    for e in luanet.each(Svc.Objects)do
-        if e.DataId == 2007457 then
-            local f = Vector3.Distance(e.Position, Entity.Player.Position)
+    for f in luanet.each(Svc.Objects)do
+        if f.DataId == 2007457 then
+            local g = Vector3.Distance(f.Position, Entity.Player.Position)
 
-            if f < 4.8 then
-                d = true
+            if g < 4.8 then
+                e = true
             end
         end
     end
 
-    if not d then
-        yield'/e Too far from a knowledge crystal to apply buffs.'
+    if not e then
+        b('Too far from a knowledge crystal to apply buffs.', true)
 
         return
     end
 
-    local e = InstancedContent.OccultCrescent.OccultCrescentState.SupportJobLevels
+    local f = InstancedContent.OccultCrescent.OccultCrescentState.SupportJobLevels
 
-    for f, g in ipairs(OCJobBuffs)do
-        if g.enabled and (e[g.id] >= g.level) then
-            yield('/phantomjob ' .. g.name)
+    for g, h in ipairs(OCJobBuffs)do
+        if h.enabled and (f[h.id] >= h.level) then
+            yield('/phantomjob ' .. h.name)
             yield'/wait 2'
-            yield('/action "Phantom Action ' .. string.rep('I', g.action) .. '"')
+            yield('/action "Phantom Action ' .. string.rep('I', h.action) .. '"')
             yield'/wait 3'
         end
     end
 
-    yield('/phantomjob ' .. c)
+    yield('/phantomjob ' .. d)
 end
 
 ocBuffs()
