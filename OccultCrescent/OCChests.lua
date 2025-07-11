@@ -1,7 +1,7 @@
 --[=====[
 [[SND Metadata]]
 author: PM
-version: 0.4.0
+version: 0.5.0
 description: Checks for chests in OC
 [[End Metadata]]
 --]=====]
@@ -42,9 +42,32 @@ do
 
         return b
     end
+    function a.b()
+        local function ErrorToast(b)
+            Svc.Toasts:ShowError(b)
+        end
+
+        return ErrorToast
+    end
+    function a.c()
+        local b = a.load'b'
+
+        local function ErrorLog(c, d)
+            d = d or false
+
+            Svc.Chat:PrintError(c, 'PND', 58)
+
+            if d then
+                b(c)
+            end
+        end
+
+        return ErrorLog
+    end
 end
 
 local b = a.load'a'
+local c = a.load'c'
 
 local function ocChests()
     if not b.canChangePhJob() then
@@ -53,20 +76,20 @@ local function ocChests()
         return
     end
 
-    local c = b.getOcJob()
+    local d = b.getOcJob()
 
     yield'/phantomjob freelancer'
     yield'/wait 2'
 
     if InstancedContent.OccultCrescent.OccultCrescentState.CurrentSupportJob ~= 0 then
-        Svc.Chat:Print'Unable to switch to Ph. Freelancer, try again.'
+        c('Unable to switch to Ph. Freelancer, try again.', true)
 
         return
     end
 
     yield'/action "Phantom Action II"'
     yield'/wait 2'
-    yield('/phantomjob ' .. c)
+    yield('/phantomjob ' .. d)
 end
 
 ocChests()
